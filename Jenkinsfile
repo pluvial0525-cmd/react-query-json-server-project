@@ -22,11 +22,12 @@ pipeline {
                     docker buildx version || true
 
                     echo "===== Compose ====="
-                    docker-compose --version || true
+                    docker compose version || true
                 '''
             }
         }
-stage('Install Frontend') {
+
+        stage('Install Frontend') {
             steps {
                 dir('frontend') {
                     sh 'npm install'
@@ -45,9 +46,9 @@ stage('Install Frontend') {
         stage('Deploy') {
             steps {
                 sh '''
-                    docker-compose down || true
-                    docker-compose build --no-cache
-                    docker-compose up -d
+                    docker compose down || true
+                    docker compose build --no-cache
+                    docker compose up -d
                 '''
             }
         }
