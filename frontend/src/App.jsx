@@ -16,10 +16,6 @@ import SalesPage from './pages/sales/SalesPage'
 ModuleRegistry.registerModules([AllCommunityModule])
 
 const queryClient = new QueryClient();
-ModuleRegistry.registerModules([AllCommunityModule])
-
-
-const queryClient = new QueryClient();
 
 function App() {
 
