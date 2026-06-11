@@ -14,16 +14,8 @@ my-jenkins
 
 비밀번호 찾는코드
 docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
-<<<<<<< HEAD
-
-00b70868702e4f82b5909d4639c78f92
 
 
-
-=======
-00b70868702e4f82b5909d4639c78f92
-
->>>>>>> a7086d3d148a90eb6227c0369967145f80489a2a
 캐시랑 파일 다 지우는거
 1. docker rm -f jenkins
 2. docker rmi -f my-jenkins
