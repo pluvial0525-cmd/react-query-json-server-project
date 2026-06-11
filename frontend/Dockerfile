@@ -1,19 +1,14 @@
-FROM node:20-alpine AS builder
+FROM jenkins/jenkins:lts
 
-WORKDIR /app
+USER root
 
-COPY package*.json ./
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    wget \
+    docker.io
 
-RUN npm install
+RUN usermod -aG docker jenkins
 
-COPY . .
-
-RUN npm run build
-
-FROM nginx:alpine
-
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 8080
+EXPOSE 50000
