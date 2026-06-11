@@ -46,7 +46,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    docker compose down || true
+                    docker compose down --remove-orphans || true
+                    docker rm -f nginx json-server || true
+
                     docker compose build --no-cache
                     docker compose up -d
                 '''
