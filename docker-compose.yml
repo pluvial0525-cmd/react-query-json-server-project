@@ -1,42 +1,27 @@
 services:
 
-  frontend:
+  json-server:
     build:
-      context: ./frontend
-    container_name: frontend
+      context: ./frontend/server
 
-  backend:
-    image: clue/json-server
-    container_name: backend
-    volumes:
-      - ./frontend/server/db.json:/data/db.json
-    command: json-server --host 0.0.0.0 --watch /data/db.json --port 3001
+    container_name: json-server
+
     ports:
       - "3001:3001"
 
-  nginx:
-    build:
-      context: ./nginx
-    container_name: nginx
-    ports:
-      - "80:80"
-    depends_on:
-      - frontend
-      - backend
-
-  jenkins:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: jenkins
-    user: root
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
 
-volumes:
-  jenkins_home:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+
+    container_name: nginx
+
+    depends_on:
+      - json-server
+
+    ports:
+      - "80:80"
+
+    restart: unless-stopped
